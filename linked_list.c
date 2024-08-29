@@ -159,3 +159,34 @@ void printList(TLinkedListNode *head) {
     }
     printf("]\n");
 }
+
+
+#define IS_LAST(_Elem_) ((_Elem_) != NULL && (_Elem_)->next == NULL)
+
+
+bool findMthToLastElem(TLinkedListNode *head, int m, TLinkedListNode **elem) {
+    /*
+     * Find m-th to last element in the list.
+     * m==0 returns the last element.
+     * m>=list length - 1 returns the fist element
+     */
+    if (head == NULL) {
+        *elem = NULL;
+        return false;
+    }
+
+    int nElems = 0;
+
+    *elem = head;
+    TLinkedListNode *curr = head;
+
+    while (!IS_LAST(curr)) {
+        curr = curr->next;
+        if (nElems < m)
+            nElems++;
+        else
+            *elem = (*elem)->next;
+    }
+
+    return true;
+}

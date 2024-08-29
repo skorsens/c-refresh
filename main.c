@@ -1,7 +1,11 @@
+#include <assert.h>
 #include <stdio.h>
 
 #include "linked_list.h"
 
+
+#define _TEST_LINKED_LIST
+#undef _TEST_LINKED_LIST
 
 TLinkedListNode *_fillUpListInsert(TLinkedListNode *head, int aData[], int aDataLength) {
     for (int i = 0; i < aDataLength; i++) {
@@ -28,9 +32,7 @@ TLinkedListNode *_fillUpListSorted(TLinkedListNode *head, int aData[], int aData
 }
 
 
-int main(void) {
-    printf("Hello, World!\n");
-
+void _test_linked_list(void) {
     int aData[] = {10, 20, 30, 40};
     TLinkedListNode *head = NULL;
     head = _fillUpListInsert(head, aData, sizeof(aData)/sizeof(int));
@@ -77,5 +79,45 @@ int main(void) {
     printf("********** deleteAllNodes **********\n");
     head = deleteAllNodes(head);
     printList(head);
+}
+
+void test_findMthToLastElem() {
+    int aData[] = {10, 20, 30, 40};
+    TLinkedListNode *head = NULL;
+    bool rc = false;
+
+    printf("test_findMthToLastElem\n");
+
+    head = _fillUpListInsert(head, aData, sizeof(aData)/sizeof(int));
+    TLinkedListNode *elem = NULL;
+
+    rc = findMthToLastElem(head, 0, &elem);
+    assert(rc == true && elem != NULL && elem->data == 10);
+
+    rc = findMthToLastElem(head, 1, &elem);
+    assert(rc == true && elem != NULL && elem->data == 20);
+
+    rc = findMthToLastElem(head, 2, &elem);
+    assert(rc == true && elem != NULL && elem->data == 30);
+
+    rc = findMthToLastElem(head, 3, &elem);
+    assert(rc == true && elem != NULL && elem->data == 40);
+
+    rc = findMthToLastElem(head, 4, &elem);
+    assert(rc == true && elem != NULL && elem->data == 40);
+
+    rc = findMthToLastElem(head, 10, &elem);
+    assert(rc == true && elem != NULL && elem->data == 40);
+}
+
+int main(void) {
+    printf("Hello, World!\n");
+
+#ifdef _TEST_LINKED_LIST
+    _test_linked_list();
+#endif
+
+    test_findMthToLastElem();
+
     return 0;
 }

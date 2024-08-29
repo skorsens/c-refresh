@@ -4,6 +4,7 @@
 
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
+#include <stdbool.h>
 
 typedef struct SLinkedListNode {
     struct SLinkedListNode *next;
@@ -21,5 +22,7 @@ TLinkedListNode *deleteAllNodes(TLinkedListNode *head);
 int length(TLinkedListNode *head);
 int listToArray(int a[], int len_a, TLinkedListNode *head);
 void printList(TLinkedListNode *head);
+
+bool findMthToLastElem(TLinkedListNode *head, int m, TLinkedListNode **elem);
 
 #endif //LINKED_LIST_H
